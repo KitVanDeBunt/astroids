@@ -2,13 +2,18 @@ using UnityEngine;
 using System.Collections;
 
 public class live : MonoBehaviour {
-	
 	public GUIText scoreText;
 	public GUIText lifeText;
-	public static int score = 0 ;
-	public static int life = 5 ;
+	public int setScore = 0 ;
+	public int setLife = 5 ;
+	private int score;
+	private int life;
+	
+	public GameObject GameOverUI;
 	// Use this for initialization
 	void Start () {
+		score =  setScore;
+		life = setLife;
 		scoreText.text = "score: "+score;
 		lifeText.text = "life: "+life;
 	}
@@ -21,5 +26,9 @@ public class live : MonoBehaviour {
 	public void setLifeText(int Delta){
 		life+=Delta;
 		lifeText.text = "life: "+life;
+		if(life < 0){
+			Instantiate (GameOverUI, transform.position,Quaternion.identity);
+			Destroy(gameObject);
+		}
 	}
 }
